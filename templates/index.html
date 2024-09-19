@@ -1,0 +1,24 @@
+<!DOCTYPE html> 
+<html> 
+ 
+<head> 
+    <title>GG for sale</title> 
+    <!--This is how we link to our CSS file in our static folder--> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">  
+</head> 
+ 
+<body> 
+    <ul id="navbar"> 
+        <li class="navleft navitem"><a href="{{ url_for('index') }}">Home</a></li> 
+        <li class="navleft navitem"><a href="{{ url_for('index') }}">View Games</a></li> 
+        <li class="navleft navitem"><a href="{{ url_for('index') }}">Add Games</a></li> 
+        <li class="navright navitem"><a href="{{ url_for('login') }}">Login</a></li> 
+    </ul> 
+ 
+ 
+    <h2 class="homeHeader">Welcome To GG For sale</h2> 
+ <!-- What appears before block body can be used as a basic template again -->   
+ 
+ </body> 
+ 
+</html> 
