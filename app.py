@@ -13,6 +13,8 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
+
+
     # Database connection function
 def get_db_connection():
     conn = sqlite3.connect('login.db')
@@ -42,22 +44,22 @@ def login():
             return redirect(url_for('index'))
     return render_template("login.html")
 
-@app.route('/admin')
-def admin():
+@app.route('/view_games', methods=('POST', 'GET'))
+def view_games():
     conn = get_db_connection()
-    sql = "SELECT * FROM users"
-    users = conn.execute(sql).fetchall()
+    sql = "SELECT * FROM games"
+    games = conn.execute(sql).fetchall()
     conn.close()
-    return render_template('view_users.html', users=users)
+    return render_template('view_games.html', games=games)
 # Route to edit a game
 
 @app.route('/edit/<int:id>', methods=('GET', 'POST'))
-def edit_user(id):
+def edit_game(id):
     conn = get_db_connection()
-    users = conn.execute('SELECT * FROM users WHERE id=?', (id,)).fetchone()
+    users = conn.execute('SELECT * FROM games WHERE id=?', (id,)).fetchone()
 
     if request.method == 'POST':
-        user_name = request.form['userName']
+        id = request.form['userName']
         password = request.form['password']
 
         if not user_name or not password: 
@@ -71,9 +73,11 @@ def edit_user(id):
             
     return render_template('edit_user.html', users=users)
 
+
+
 #Route to delete a game
 @app.route('/delete/<int:id>', methods=('POST',))
-def delete_user(id):
+def delete_game(id):
     conn = get_db_connection()
     conn.execute('DELETE FROM users WHERE id = ?', (id,))
     conn.commit()
@@ -83,4 +87,4 @@ def delete_user(id):
 
 # main driver function #MAKE SURE THIS STAYS AT THE BOTTOM AT ALL TIMES
 if __name__ == '__main__':
-    app.run(debug=True,port=7835)
+    app.run(debug=True,port=7496)
