@@ -59,14 +59,14 @@ def edit_game(id):
     users = conn.execute('SELECT * FROM games WHERE id=?', (id,)).fetchone()
 
     if request.method == 'POST':
-        id = request.form['userName']
+        id = request.form['id']
         password = request.form['password']
 
-        if not user_name or not password: 
+        if not id or not password: 
             flash('All fields are required!')
         else:
             conn.execute('UPDATE users SET username = ?, password = ? WHERE id = ?', 
-                (user_name, password, id))
+                (id, password))
             conn.commit()
             conn.close()
             return redirect(url_for('admin'))
