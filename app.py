@@ -56,22 +56,27 @@ def view_games():
 @app.route('/edit/<int:id>', methods=('GET', 'POST'))
 def edit_game(id):
     conn = get_db_connection()
-    users = conn.execute('SELECT * FROM games WHERE id=?', (id,)).fetchone()
+    games = conn.execute('SELECT * FROM games WHERE id=?', (id,)).fetchone()
 
     if request.method == 'POST':
         id = request.form['id']
-        password = request.form['password']
+        title = request.form['title']
+        platform = request.form['platform']
+        genre = request.form['genre']
+        year = request.form['year']
+        sales = request.form['sales']
 
-        if not id or not password: 
+
+        if not id or not title or not platform or not genre or not year or not sales: 
             flash('All fields are required!')
         else:
             conn.execute('UPDATE users SET username = ?, password = ? WHERE id = ?', 
-                (id, password))
+                (id, title, platform, genre, year, sales))
             conn.commit()
             conn.close()
             return redirect(url_for('admin'))
             
-    return render_template('edit_user.html', users=users)
+    return render_template('edit_user.html', games=games)
 
 
 
