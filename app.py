@@ -50,7 +50,7 @@ def view_games():
     sql = "SELECT * FROM games"
     games = conn.execute(sql).fetchall()
     conn.close()
-    return render_template('view_games.html', games=games)
+    return render_template('view_games', games=games)
 # Route to edit a game
 
 @app.route('/edit/<int:id>', methods=('GET', 'POST'))
@@ -59,7 +59,6 @@ def edit_game(id):
     games = conn.execute('SELECT * FROM games WHERE id=?', (id,)).fetchone()
 
     if request.method == 'POST':
-        id = request.form['id']
         title = request.form['title']
         platform = request.form['platform']
         genre = request.form['genre']
@@ -70,11 +69,11 @@ def edit_game(id):
         if not id or not title or not platform or not genre or not year or not sales: 
             flash('All fields are required!')
         else:
-            conn.execute('UPDATE users SET username = ?, password = ? WHERE id = ?', 
-                (id, title, platform, genre, year, sales))
+            conn.execute('UPDATE games SET title = ?, platform = ?, genre = ?, year = ?, sales = ? WHERE id = ?', 
+                (title, platform, genre, year, sales, id))
             conn.commit()
             conn.close()
-            return redirect(url_for('admin'))
+            return redirect(url_for('view_games'))
             
     return render_template('edit_user.html', games=games)
 
@@ -88,7 +87,7 @@ def delete_game(id):
     conn.commit()
     conn.close()
     flash('User deleted successfully!')
-    return redirect(url_for('admin'))
+    return redirect(url_for('view_games'))
 
 # main driver function #MAKE SURE THIS STAYS AT THE BOTTOM AT ALL TIMES
 if __name__ == '__main__':

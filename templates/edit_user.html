@@ -11,15 +11,15 @@
 <h2>Edit Users</h2>
 <form method="post">
     <label for="title">Title</label>
-    <input type="text" name="title" id="title" value="{{ game.title}}" required>
+    <input type="text" name="title" id="title" value="{{ title}}" required>
     <label for="platform">Platform</label>
-    <input type="text" name="platform" id="platform" value="{{ game.platform }}" required>
+    <input type="text" name="platform" id="platform" value="{{ platform }}" required>
     <label for="genre">Genre</label>
-    <input type="text" name="genre" id="genre" value="{{ game.genre }}" required>
+    <input type="text" name="genre" id="genre" value="{{ genre }}" required>
     <label for="year">Year</label>
-    <input type="text" name="year" id="year" value="{{ game.year }}" required>
+    <input type="text" name="year" id="year" value="{{ year }}" required>
     <label for="sales">Sales</label>
-    <input type="text" name="sales" id="sales" value="{{ game.sales }}" required>
+    <input type="text" name="sales" id="sales" value="{{ sales }}" required>
     <button type="submit">Update user</button>
 </form>
 {% endblock %}
