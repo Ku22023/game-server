@@ -6,22 +6,15 @@ import sqlite3
 
 app = Flask(__name__)
 
-# The route( tells the application which URL should call 
-# the associated function.
 @app.route('/')
-# ‘/’ URL is bound with index() function.
 def index():
     return render_template("index.html")
 
-
-
-    # Database connection function
 def get_db_connection():
     conn = sqlite3.connect('login.db')
     conn.row_factory = sqlite3.Row
     return conn
     
-# Initialize the database with a games table
 def init_db():
     conn = get_db_connection() 
     with app.open_resource('schema.sql') as f:
@@ -50,8 +43,7 @@ def view_games():
     sql = "SELECT * FROM games"
     games = conn.execute(sql).fetchall()
     conn.close()
-    return render_template('view_games', games=games)
-# Route to edit a game
+    return render_template('view_games.html', games=games)
 
 @app.route('/edit/<int:id>', methods=('GET', 'POST'))
 def edit_game(id):
@@ -77,9 +69,6 @@ def edit_game(id):
             
     return render_template('edit_user.html', games=games)
 
-
-
-#Route to delete a game
 @app.route('/delete/<int:id>', methods=('POST',))
 def delete_game(id):
     conn = get_db_connection()
@@ -87,8 +76,7 @@ def delete_game(id):
     conn.commit()
     conn.close()
     flash('User deleted successfully!')
-    return redirect(url_for('view_games'))
+    return redirect(url_for('view_games.html'))
 
-# main driver function #MAKE SURE THIS STAYS AT THE BOTTOM AT ALL TIMES
 if __name__ == '__main__':
     app.run(debug=True,port=7496)
