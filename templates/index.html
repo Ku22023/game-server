@@ -11,22 +11,32 @@
     <ul id="navbar">
         <li class="navleft navitem"><a href="{{ url_for('index') }}">Home</a></li>
         <li class="navleft navitem"><a href="{{ url_for('view_games') }}">View Games</a></li>
-        <li class="navleft navitem"><a href="{{ url_for('index') }}">Add Games</a></li>
+        <li class="navleft navitem"><a href="{{ url_for('add_game') }}">Add Games</a></li>
         <li class="navright navitem"><a href="{{ url_for('login') }}">Login</a></li>
     </ul>
-
 
 {% block body %}
 <div class="gamelist">
     <div id="popular">
     <h2 class="homeHeader">Welcome To GG For sale</h2>
-    <ul>
-        <li>Mo: Astray</li>
-    </ul>
+    <table>
+        <tr>
+          <th>Company</th>
+          <th>Contact</th>
+          <th>Country</th>
+        </tr>
+        <tr>
+          <td>Alfreds Futterkiste</td>
+          <td>Maria Anders</td>
+          <td>Germany</td>
+        </tr>
+        <tr>
+          <td>Centro comercial Moctezuma</td>
+          <td>Francisco Chang</td>
+          <td>Mexico</td>
+        </tr>
+      </table>
     
-
-
-
 {% endblock %}
 </body>
 

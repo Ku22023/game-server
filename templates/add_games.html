@@ -1,0 +1,26 @@
+
+<head>
+    <title>FlaskTest</title>
+    <!--This is how we link to our CSS file in our static folder-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> 
+</head>
+<body>
+    <h2>je;lp</h2>
+{% block content %}
+<h2>Edit Users</h2>
+<form method="post">
+    <label for="id">ID</label>
+    <input type="text" name="id" id="id" value="{{ id }}" required>
+    <label for="title">Title</label>
+    <input type="text" name="title" id="title" value="{{ title}}" required>
+    <label for="platform">Platform</label>
+    <input type="text" name="platform" id="platform" value="{{ platform }}" required>
+    <label for="genre">Genre</label>
+    <input type="text" name="genre" id="genre" value="{{ genre }}" required>
+    <label for="year">Year</label>
+    <input type="text" name="year" id="year" value="{{ year }}" required>
+    <label for="sales">Sales</label>
+    <input type="text" name="sales" id="sales" value="{{ sales }}" required>
+    <button type="submit">Update user</button>
+</form>
+{% endblock %}

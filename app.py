@@ -21,6 +21,32 @@ def init_db():
         conn.executescript (f.read().decode('utf8'))
     conn.close()
 
+
+@app.route('/add_game', methods=('GET', 'POST'))
+def add_game():
+    conn = get_db_connection()
+    games = conn.execute('SELECT * FROM games').fetchone()
+
+    if request.method == 'POST':
+        id = request.form['id']
+        title = request.form['title']
+        platform = request.form['platform']
+        genre = request.form['genre']
+        year = request.form['year']
+        sales = request.form['sales']
+
+
+        if not id or not title or not platform or not genre or not year or not sales: 
+            flash('All fields are required!')
+        else:
+            conn.execute('INSERT INTO games (id, title, platform, genre, year, sales) VALUES (id = ? title = ?, platform = ?, genre = ?, year = ?, sales = ?)',
+                (id, title, platform, genre, year, sales))
+            conn.commit()
+            conn.close()
+            return render_template('add_games.html')
+            
+    return render_template('add_games.html')
+
 @app.route('/login', methods=('POST', 'GET'))
 def login():
     if request.method == 'POST':
